@@ -21,3 +21,7 @@ jpa:
 
 server:
   port: 9998
+  
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

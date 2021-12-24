@@ -30,10 +30,17 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: '2.4.3'
 	implementation group: 'org.springframework.data', name: 'spring-data-rest-hal-browser', version: '3.3.6.RELEASE'
 	
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
 	implementation 'org.springframework.boot:spring-boot-starter-test'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor' 
 	implementation 'junit:junit:4.12'
+	
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	
+	implementation 'commons-collections:commons-collections:3.2.2'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.2'
 	
 
 }
