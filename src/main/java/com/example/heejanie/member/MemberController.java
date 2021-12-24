@@ -40,14 +40,21 @@ public class MemberController {
     		          , HttpServletResponse response, @Parameter @RequestBody Member member) {
 		
 		//회원등록
-		boolean successFlag = memberService.signUp(member);
-		
-		if(!successFlag) {
+		boolean successFlag;
+		try {
+			successFlag = memberService.signUp(member);
+			
+
+			if(!successFlag) {
+				return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+			}
+		    
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		}
-	    
+		
 	    return new ResponseEntity<>(HttpStatus.OK);
 	    
     }
-
+	
 }

@@ -19,11 +19,10 @@ public class MemberRepositoryTest {
 	TestEntityManager testEntityManager;
 	
 	@Autowired
-	MemberRepository memberRepositry;
+	MemberRepository memberRepository;
 	
 	@Test
 	public void saveMemberAndGetMemberTest() {
-		 //given
         Member member = Member.builder()
                 .userId("TESTUSER")
                 .password("12345678901234567890")
@@ -31,11 +30,9 @@ public class MemberRepositoryTest {
                 .regNo("111111-2222222")
                 .build();
 
-        //when
         testEntityManager.persist(member);
 
-        //then
-        assertEquals(member, memberRepositry.findById(member.getUserId()).get());
+        assertEquals(member, memberRepository.findById(member.getUserId()).get());
 	}
 
 	

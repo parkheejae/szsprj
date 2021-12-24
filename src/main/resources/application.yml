@@ -25,3 +25,8 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+
+secretkey:
+  password-key: 1234567890123456
+  reg-no-key: 9876543210987654
