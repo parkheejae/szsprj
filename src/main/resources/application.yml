@@ -1,0 +1,23 @@
+spring: 
+  datasource: 
+    hikari: 
+      jdbc-url: jdbc:h2:tcp://localhost/~/test
+      username: sa 
+      maximum-pool-size: 5 
+      minimum-idle: 1 
+      pool-name: hikari 
+  h2: 
+    console: 
+      path: /h2console 
+      enabled: true 
+    
+jpa: 
+  hibernate: 
+    ddl-auto: update 
+  show-sql: true 
+  properties: 
+    hibernate: 
+      format_sql: true
+
+server:
+  port: 9998
