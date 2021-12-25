@@ -1,4 +1,4 @@
-package com.example.heejanie.core;
+package com.example.heejanie.common.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

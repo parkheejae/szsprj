@@ -1,20 +1,16 @@
 package com.example.heejanie.common.interceptor;
 
-import java.util.Date;
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.example.heejanie.common.exception.TokenCheckException;
 import com.example.heejanie.common.util.JwtTokenProvider;
+import com.example.heejanie.domain.Member;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -41,9 +37,10 @@ public class AuthInterceptor implements HandlerInterceptor  {
 		}
 		
 		if(!jwtTokenProvider.expireToken(token)) {
-			String userId = jwtTokenProvider.getUserId(token);
+			Member member = jwtTokenProvider.getUserInfo(token);
 			
-			request.setAttribute("sessionUserId", userId);
+			request.setAttribute("sessionUserId", member.getUserId());
+			request.setAttribute("sessionUserName", member.getUserName());
 			
 		} else {
 			throw new TokenCheckException("토큰키가 만료되었습니다.");

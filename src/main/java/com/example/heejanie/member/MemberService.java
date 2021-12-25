@@ -17,7 +17,9 @@ import com.example.heejanie.vo.SignUpVO;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "환급 정보", description = "회원의 공제 금액, 한도등 환급금 관련 처리")
 @Service
 public class MemberService {
 	

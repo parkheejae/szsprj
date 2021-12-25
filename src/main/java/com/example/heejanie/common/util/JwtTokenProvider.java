@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.heejanie.domain.Member;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jws;
@@ -53,6 +55,14 @@ public class JwtTokenProvider {
     // 토큰에서 회원 정보 추출
     public String getUserId(String jwtToken) {
         return (String) Jwts.parser().setSigningKey(jwtSecretKey).parseClaimsJws(jwtToken).getBody().getSubject();
+    }
+    
+    // 토큰에서 회원 정보 추출
+    public Member getUserInfo(String jwtToken) {
+    	
+    	Claims claims = Jwts.parser().setSigningKey(jwtSecretKey).parseClaimsJws(jwtToken).getBody();
+    	
+        return Member.builder().userId(claims.getSubject()).userName((String)claims.get("userName")).build();
     }
 
     // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
