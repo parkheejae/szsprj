@@ -30,3 +30,4 @@ springdoc:
 secretkey:
   password-key: 1234567890123456
   reg-no-key: 9876543210987654
+  jwt-key: jwtsecretkey

@@ -8,7 +8,6 @@ import com.example.heejanie.domain.Member;
 public interface MemberRepository extends JpaRepository<Member, String> {
 	
 	public Member findByUserIdAndPassword(String userId, String password);
-	
-//	
-//	public Member save(Member member);
+
+	public boolean existsByRegNo(String regNo);
 }

@@ -1,4 +1,4 @@
-package com.example.heejanie.core;
+package com.example.heejanie.common.util;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -15,4 +15,6 @@ public class SecretKey {
 	String passwordKey;
 	
 	String regNoKey;
+	
+	String jwtKey;
 }

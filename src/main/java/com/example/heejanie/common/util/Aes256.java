@@ -1,4 +1,4 @@
-package com.example.heejanie.core;
+package com.example.heejanie.common.util;
 
 import java.util.Base64;
 
@@ -28,11 +28,6 @@ public final class Aes256 {
         byte[] decodedBytes = Base64.getDecoder().decode(cipherText);
         byte[] decrypted = cipher.doFinal(decodedBytes);
         return new String(decrypted, "UTF-8");
-    }
-    
-    public static void main(String[] args) throws Exception {
-    	
-    	System.out.println(encrypt("TEST1234","1234567890123456"));
     }
 	    
 }
