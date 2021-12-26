@@ -11,7 +11,7 @@ spring:
       path: /h2console 
       enabled: true 
 server:
-  port: 9998
+  port: 9996
 szs:
   scrap-url:https://codetest.3o3.co.kr/scrap/
     
@@ -30,6 +30,6 @@ springdoc:
 
 
 secretkey:
-  password-key: 1234567890123456
-  reg-no-key: 9876543210987654
-  jwt-key: jwtsecretkey
+  password-key: dva85e8d0q12mn
+  reg-no-key: sva85e8d0q12mn
+  jwt-key: secretkeyprod

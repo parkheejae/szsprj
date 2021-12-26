@@ -15,6 +15,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,8 +24,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class HttpClient {
 	
     private static final String USER_AGENT = "Mozila/5.0";    
-    private static final String POST_URL = "https://codetest.3o3.co.kr/scrap/";    
-
+    
+    @Autowired
+    ServerUrl serverUrl;
+    
 	public String sendPost(String userName, String regNo) throws ClientProtocolException, IOException {
         
         //http client 생성
@@ -40,7 +43,7 @@ public class HttpClient {
 
  
         //get 메서드와 URL 설정
-        HttpPost httpPost = new HttpPost(POST_URL);
+        HttpPost httpPost = new HttpPost(serverUrl.getScrapUrl());
  
         
         Map<String, String> map = new HashMap<String,String>();

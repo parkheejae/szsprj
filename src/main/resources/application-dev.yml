@@ -11,7 +11,7 @@ spring:
       path: /h2console 
       enabled: true 
 server:
-  port: 9998
+  port: 9997
 szs:
   scrap-url:https://codetest.3o3.co.kr/scrap/
     
