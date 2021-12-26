@@ -85,35 +85,9 @@ public class MemberService {
      */
     public boolean checkPasword(String dbPassword, String password) {
         try {
-        	System.out.println(dbPassword);
-        	System.out.println(Aes256.encrypt(password, secretKey.getPasswordKey()));
 			return StringUtils.equals(dbPassword, Aes256.encrypt(password, secretKey.getPasswordKey()));
 		} catch (Exception e) {
 			return false;
 		}
     }
-    
-    /**
-     * JWT 토큰 생성
-     * @param memberNo
-     * @param email
-     * @return
-     */
-    public String makeJwtToken(String userId, String userName) {
-        Date now = new Date();
-
-        return Jwts.builder()
-            .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // 헤더타입
-            .setIssuer("fresh") // 토큰 발급자
-            .setIssuedAt(now) // 토큰 발급 시간
-            .setExpiration(new Date(now.getTime() + Duration.ofMinutes(30).toMillis())) // 토큰 만료 시간
-            .claim("userId", userId) // 회원 번호
-            .claim("userName", userName) //email
-            .signWith(SignatureAlgorithm.HS256, "secretKey") // keyvalue
-            .compact();
-    }
-    
-    
-    
-    
 }

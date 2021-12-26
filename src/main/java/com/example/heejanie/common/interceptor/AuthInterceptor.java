@@ -26,12 +26,8 @@ public class AuthInterceptor implements HandlerInterceptor  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		System.out.println("start interceptor");
-		
 		String token = jwtTokenProvider.resolveToken(request);
 
-		System.out.println("token : " + token);
-		
 		if(StringUtils.isBlank(token)) {
 			throw new TokenCheckException("토큰키가 존재하지 않습니다.");
 		}
