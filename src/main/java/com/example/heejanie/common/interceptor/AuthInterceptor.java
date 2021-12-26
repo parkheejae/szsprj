@@ -33,6 +33,7 @@ public class AuthInterceptor implements HandlerInterceptor  {
 		}
 		
 		if(!jwtTokenProvider.expireToken(token)) {
+			
 			Member member = jwtTokenProvider.getUserInfo(token);
 			
 			request.setAttribute("sessionUserId", member.getUserId());

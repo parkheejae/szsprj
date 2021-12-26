@@ -22,13 +22,13 @@ public class RefundController {
 	@Autowired
 	RefundService refundService;
 	/**
-	 * 회원 등록
+	 * 회원 정보 스크랩
 	 * @param paramMap
 	 * @return
 	 */
 	@ResponseBody
 	@PostMapping("/szs/scrap")
-    @Operation(summary = "scrap", description = "회원 scrap 연동")
+    @Operation(summary = "scrap", description = "회원 정보 스크랩")
     public ResponseEntity<ScrapVO> scrap(HttpServletRequest request
     		          						, HttpServletResponse response) {
 		String userId = (String)request.getAttribute("sessionUserId");
@@ -40,13 +40,13 @@ public class RefundController {
 	    
     }
 	/**
-	 * 회원 등록
+	 * 환급액 계산
 	 * @param paramMap
 	 * @return
 	 */
 	@ResponseBody
 	@PostMapping("/szs/refund")
-	@Operation(summary = "공제 금액 계싼", description = "scrap 데이터를 가지고 공제 금액을 계산 한다.")
+	@Operation(summary = "환급액 계싼", description = "scrap 데이터를 가지고 공제 금액을 계산 한다.")
 	public ResponseEntity<Map<String, String>> srefundcrap(HttpServletRequest request
 			, HttpServletResponse response) {
 		String userId = (String)request.getAttribute("sessionUserId");

@@ -64,16 +64,16 @@ public class RefundService {
 			regNo = Aes256.decrypt(member.getRegNo(), secretKey.getRegNoKey());
 			
 		}catch (Exception e) {
-			throw new ApiException("회원 정보 조회 실패");
+			throw new ApiException("회원 정보 조회에 실패했습니다.");
 		}
 		
 		// 데이터 SCRAP 연동
 		try {
 			reponseBody = httpClient.sendPost(member.getUserName(), regNo);
 		} catch (ClientProtocolException e) {
-			throw new ApiException("스크랩 데이터 조회 연동 실패");
+			throw new ApiException("데이터 조회에 실패햇습니다.");
 		} catch (IOException e) {
-			throw new ApiException("스크랩 데이터 조회 연동 실패");
+			throw new ApiException("데이터 조회에 실패햇습니다.");
 		} 
 		JSONObject jsonObject = null;
 		try {
@@ -81,7 +81,7 @@ public class RefundService {
 			jsonObject = (JSONObject) jsonParser.parse(reponseBody);
 			
 		} catch (ParseException e) {
-			throw new ApiException("응답 데이터 읽기 실패");
+			throw new ApiException("데이터 조회에 실패햇습니다.");
 		}
 		
 		//기등록 SCRAP 삭제

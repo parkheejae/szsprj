@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.example.heejanie.common.exception.ApiException;
 import com.example.heejanie.common.exception.TokenCheckException;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 @RestControllerAdvice
 public class DefaultControllerAdvice {
 	
@@ -30,6 +32,14 @@ public class DefaultControllerAdvice {
         result.put("message", e.getResultMessage());
  
         return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
+    }
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<Map<String, String>> handlerException(ExpiredJwtException e){
+    	Map<String, String> result = new HashMap<String, String>();
+    	result.put("code", "ERROR");
+    	result.put("message", "토큰키가 만료되었습니다.");
+    	
+    	return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
     }
     
 }

@@ -10,10 +10,12 @@ spring:
     console: 
       path: /h2console 
       enabled: true 
+      
 server:
   port: 9998
+  
 szs:
-  scrap-url:https://codetest.3o3.co.kr/scrap/
+  scrap-url: https://codetest.3o3.co.kr/scrap/
     
 jpa: 
   hibernate: 

@@ -2,6 +2,7 @@ package com.example.heejanie.member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@PostMapping("/szs/signup")
-    @Operation(summary = "회원 가입", description = "회원 정보를 저장 합니다.")
+    @Operation(summary = "회원 등록", description = "회원 정보를 저장 합니다.")
     public ResponseEntity<ReturnVO> signUp(HttpServletRequest request
     		          						, HttpServletResponse response
     		          						, @Parameter @RequestBody SignUpVO signUpVO) {
@@ -70,18 +71,12 @@ public class MemberController {
 										, HttpServletResponse response
 										, @Parameter @RequestBody LoginVO loginVO) {
 		String jwtToken = "";
-		try {
-			Member member = memberService.memberInfo(loginVO.getUserId());
-			
-			if(memberService.checkPasword(member.getPassword(), loginVO.getPassword())) {
-				jwtToken = jwtTokenProvider.createToken(member.getUserId(), member.getUserName());
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-			}
-			
-		} catch (Exception e) {
-			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		Member member = memberService.memberInfo(loginVO.getUserId());
+		
+		if(memberService.checkPasword(member.getPassword(), loginVO.getPassword())) {
+			jwtToken = jwtTokenProvider.createToken(member.getUserId(), member.getUserName());
+		} else {
+			throw new ApiException("비밀번호 오류 입니다.");
 		}
 		
 		request.getSession().setAttribute("X-AUTH-TOKEN", jwtToken);
@@ -109,4 +104,22 @@ public class MemberController {
 								.build();
 	    return new ResponseEntity<MemberVO>(memberVO, HttpStatus.OK);
     }
+	
+	/**
+	 * 로그아웃
+	 * @param request
+	 */
+	@PostMapping("/szs/logout")
+	@Operation(summary = "회원 로그 아웃")
+	public ResponseEntity<ReturnVO> logout(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			 HttpSession session = request.getSession(false);
+		    if (session != null) {
+		        session.invalidate();   // 세션 날림
+		    }
+		} catch (Exception e) {
+			throw new ApiException("세션 삭제에 실패하였습니다.");
+		}
+	    return new ResponseEntity<>(ReturnVO.builder().code("SUCCESS").build(), HttpStatus.OK);
+	}
 }

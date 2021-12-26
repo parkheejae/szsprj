@@ -1,7 +1,6 @@
 package com.example.heejanie.member;
 
-import java.time.Duration;
-import java.util.Date;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,6 @@ import com.example.heejanie.domain.Member;
 import com.example.heejanie.repository.MemberRepository;
 import com.example.heejanie.vo.SignUpVO;
 
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "환급 정보", description = "회원의 공제 금액, 한도등 환급금 관련 처리")
@@ -44,12 +40,12 @@ public class MemberService {
     	}
     	
 		if(memberRepository.existsById(member.getUserId())) {
-    		throw new ApiException("아이디 중복입니다. 다른 아이디로 시도해 주세요");
+    		throw new ApiException("아이디 중복입니다. 다른 아이디로 시도해 주세요.");
 		}
 		String regNo = Aes256.encrypt(member.getRegNo(), secretKey.getRegNoKey());
 		
 		if(memberRepository.existsByRegNo(regNo)) {
-    		throw new ApiException("가입된 주민 등록 번호입니다. 가입된 회원 정보를 확인 해주세요");
+    		throw new ApiException("가입된 주민 등록 번호입니다. 가입된 회원 정보를 확인 해주세요.");
 		}
 		
     	Member newMember = memberRepository.save(Member.builder()
@@ -71,11 +67,11 @@ public class MemberService {
      * @return
      */
     public Member memberInfo(String userId) {
-    	Member member = memberRepository.findById(userId).get();
-    	if(member == null) {
-    		return new Member();
+    	Optional<Member> member = memberRepository.findById(userId);
+    	if(member.isEmpty()) {
+    		throw new ApiException("등록되지 않은 ID입니다.");
     	}
-        return member;
+        return member.get();
     }
     
     /**
@@ -87,7 +83,7 @@ public class MemberService {
         try {
 			return StringUtils.equals(dbPassword, Aes256.encrypt(password, secretKey.getPasswordKey()));
 		} catch (Exception e) {
-			return false;
+			throw new ApiException("비밀번호 오류입니다.");
 		}
     }
 }
