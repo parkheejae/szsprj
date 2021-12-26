@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.example.heejanie.common.util.Aes256;
 import com.example.heejanie.domain.Member;
 import com.example.heejanie.repository.MemberRepository;
+import com.example.heejanie.vo.SignUpVO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,18 +31,17 @@ public class MemberServiceTest {
 	@Autowired
 	MemberRepository memberRepository;
 	
-	@Test
 	public void signUp() {
 		
 		try {
 			
-//			memberService.signUp(Member.builder()
-//					.userId("MEMBERTEST")
-//					.password("TEST1234")
-//					.userName("È«±æµ¿")
-//					.regNo("850808-1234567")
-//					.build());
-//			
+			memberService.signUp(SignUpVO.builder()
+					.userId("MEMBERTEST")
+					.password("TEST1234")
+					.userName("È«±æµ¿")
+					.regNo("850808-1234567")
+					.build());
+			
 			Member member = memberRepository.findById("MEMBERTEST").get();
 			
 	        assertEquals(member.getPassword(), Aes256.encrypt("TEST1234", passwordKey));
@@ -54,17 +54,28 @@ public class MemberServiceTest {
 	}
 	
 	@Test
-	public void makeJwtToken() {
+	public void checkPasword() {
 		
 		try {
-			memberService.makeJwtToken("MEMBERTEST", "¹ÚÈñÀç");
+			boolean check = memberService.checkPasword("bxURmX+9hrKfDbp2P7kG9g==", "test1234");
 			
-			Member member = memberRepository.findById("MEMBERTEST").get();
 			
-	        assertEquals(member.getPassword(), Aes256.encrypt("TEST1234", passwordKey));
+	        assertEquals(true, check);
 	        
-	        assertEquals(member.getRegNo(), Aes256.encrypt("850808-1234567", regNoKey));
-	        
+		} catch (Exception e) {
+			fail("error", e);
+		}
+	}
+	
+	@Test
+	public void memberInfo() {
+		
+		try {
+			Member member = memberService.memberInfo("DAECADID");
+			
+			
+			assertEquals("DAECADID", member.getUserId());
+			
 		} catch (Exception e) {
 			fail("error", e);
 		}

@@ -1,6 +1,7 @@
 package com.example.heejanie.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,5 +24,14 @@ public class SignUpVO {
 	//주민 등록 번호
 	@Schema(description="주민등록번호", example = "860824-1655068", required = true)
 	String regNo;
-    
+	
+	@Builder
+	public SignUpVO(String userId, String password, String userName, String regNo) {
+		super();
+		this.userId = userId;
+		this.password = password;
+		this.userName = userName;
+		this.regNo = regNo;
+	}
+	 
 }
